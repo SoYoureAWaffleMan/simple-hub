@@ -1,6 +1,6 @@
 <template>
   <li class="card" :class="cardClass" >
-    <a :href="this.item.uri">
+    <a :href="this.item.uri" @click.prevent="cardClick">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
       <h3 :class="{ 'reduced-more' : this.item.name.length > 20 }">
         {{ item.name }}
@@ -67,7 +67,12 @@ export default {
       return this.item.status
         ? '--status-'+this.item.status
         : ''
-    },
+    }
+  },
+  methods : {
+    cardClick(){
+      alert('Clickable event cards, coming soon...')
+    }
   }
 }
 </script>
