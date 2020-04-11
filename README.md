@@ -1,4 +1,6 @@
-# sov
+# Static VueJS hub for SOV - renders data from Ents24 API endpoint
+
+See it in action  https://soyoureawaffleman.github.io/sov-hub/
 
 ## Project setup
 ```
