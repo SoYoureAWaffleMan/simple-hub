@@ -37,7 +37,7 @@ export default {
       const params = {
         pageNumber : this.nextPageNumber,
         pageSize   : 100,
-        filter : { sov : true }
+        filters : { sov : true }
       }
 
       axios.get('https://www.ents24.com/internal-api/hub-by-date', {params})
