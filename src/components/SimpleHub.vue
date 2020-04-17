@@ -8,7 +8,16 @@
         class="card">
       </Card>
     </ul>
-    <infinite-loading @infinite="loadNextPage" spinner="waveDots"></infinite-loading>
+    <infinite-loading @infinite="loadNextPage" spinner="waveDots">
+      <div slot="no-more">
+        <p>No more events</p>
+        <hr/>
+        <p class="dull text-italic anim-pause-fade-in">While you're here, have you
+          <a href="https://www.change.org/p/boris-johnson-cancel-the-festival-of-britain-save-britain-s-grassroots-culture">signed the petition</a>?
+        </p>
+      </div>
+      <div slot="no-results">No events found. Curious.</div>
+    </infinite-loading>
   </div>
 </template>
 
@@ -27,6 +36,7 @@ export default {
   data : function() {
     return {
       events         : [],
+      pageSize       : window.screen.width < 600 ? 30 : 80,
       nextPageNumber : 1,
       noMorePages    : false
     }
@@ -36,7 +46,7 @@ export default {
     async loadNextPage(infiniteLoadingInstance) {
       const params = {
         pageNumber : this.nextPageNumber,
-        pageSize   : 100,
+        pageSize   : this.pageSize,
         filters : { sov : true }
       }
 

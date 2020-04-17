@@ -8,8 +8,8 @@
       <div v-if="item.subtitle" class="subtitle">
         {{ item.subtitle }}
       </div>
-      <div class="summary" >
-        {{ item.summary || '23rd April 8pm BST' }}
+      <div v-if="item.startTimeString" class="summary" >
+        {{ item.startTimeString }}
       </div>
     </a>
 
@@ -118,7 +118,7 @@ $card-summary-cancelled-color : grey;
 
 a {
   text-decoration: none;
-  background-color : black;
+  background-color : #333;
   color            : white;
   display          : flex;
   flex-direction   : column;
@@ -183,7 +183,6 @@ h3 {
   overflow      : hidden;
 }
 
-
 .card.--status-cancelled,
 .card.--status-postponed {
   img {
@@ -215,15 +214,4 @@ h3 {
     background : url('../assets/img/ents24-stream-diamond.svg') center/contain no-repeat;
   }
 }
-
-@keyframes fade-in {
-  0%   { opacity : 0 }
-  100% { opacity : 1 }
-}
-
-.anim-fade-in {
-  animation-duration : 1s;
-  animation-name     : fade-in;
-}
-
 </style>
