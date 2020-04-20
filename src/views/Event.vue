@@ -14,7 +14,7 @@
         </time>
       </div>
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
-      <p v-html="event.description"></p>
+      <p v-for="(line, index) in descriptionLines" :key="index" v-html="line"></p>
     </div>
   </div>
 </template>
@@ -39,6 +39,14 @@ export default {
     ticketHref() {
       // Note - this is a URI not a URL *shakes fist*
       return 'https://ents24.com'+get(this.event,'ticketSummary.url')
+    },
+    /**
+     * Break the desc (inc. line breaks) into an array of HTML strings
+     */
+    descriptionLines(){
+      let desc = get(this.event,'description', '')
+      let descLines = desc.split("\n")
+      return descLines.filter(line => !!line)
     }
   },
 
