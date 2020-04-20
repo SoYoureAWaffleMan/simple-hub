@@ -36,28 +36,13 @@ h1, h2, h3, p, .with-side-padding {
   padding-right : 1rem;
 }
 
-h1, h2, p, .with-max-width {
+p, .with-max-width {
   max-width: 800px;
 }
 
 p {
   line-height: 1.5rem;
   text-align: left;
-}
-
-.pre-hub {
-  text-align    : center;
-
-  a {
-    transition : all .3s;
-    display    : inline-block;
-    opacity    : .8;
-
-    &:hover {
-      transform : scale(1.1);
-      opacity   : 1;
-    }
-  }
 }
 
 .dull {

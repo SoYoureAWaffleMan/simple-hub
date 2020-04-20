@@ -1,5 +1,11 @@
 <template>
   <div class="view-hub">
+    <div class="pre-hub text-center with-bottom-margin">
+      <h1>Save Our Venues events, powered by</h1>
+      <a href="https://ents24.com?referer=sov&utm_medium=web&utm_source=sov&utm_campaign=sov-hub" target="_BLANK">
+        <img alt="Vue logo" src="../assets/img/ents24-logo-black.svg" width="180">
+      </a>
+    </div>
     <ul>
       <Card
         v-for="event in events"
@@ -70,6 +76,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pre-hub {
+
+  a {
+    transition : all .3s;
+    display    : inline-block;
+    opacity    : .8;
+
+    &:hover {
+      transform : scale(1.1);
+      opacity   : 1;
+    }
+  }
+}
+
 h3 {
   margin: 40px 0 0;
 }
