@@ -1,41 +1,48 @@
 <template>
   <div id="app">
-    <div class="pre-hub with-bottom-margin">
-      <h1>Save Our Venues events, powered by</h1>
-      <a href="https://ents24.com?referer=sov&utm_medium=web&utm_source=sov&utm_campaign=sov-hub" target="_BLANK">
-        <img alt="Vue logo" src="./assets/img/ents24-logo-black.svg" width="180">
-      </a>
-    </div>
-    <SimpleHub />
+    <router-view/>
   </div>
 </template>
-
-<script>
-import SimpleHub from './components/SimpleHub.vue'
-
-export default {
-  name: 'App',
-  components: {
-    SimpleHub
-  }
-}
-</script>
 
 <style lang="scss">
 
 body {
-  padding     : 1rem 0 0 0;
   margin      : 0;
   font-family : Helvetica, Arial, sans-serif;
+  font-size   : 18px;
   color       : #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-p, ul, hr {
+p, ul, hr, h1, h2 {
   margin : 0;
 }
 
-p, ul, hr, .with-bottom-margin {
+p, ul, hr, h1, h2, time, .with-bottom-margin {
   margin-bottom : 2rem;
+}
+
+time {
+  display: block;
+}
+
+.with-top-padding {
+  padding-top : 2rem;
+}
+
+h1, h2, h3, p, .with-side-padding {
+  padding-left : 1rem;
+  padding-right : 1rem;
+}
+
+h1, h2, p, .with-max-width {
+  max-width: 800px;
+}
+
+p {
+  line-height: 1.5rem;
+  text-align: left;
 }
 
 .pre-hub {
@@ -57,6 +64,10 @@ p, ul, hr, .with-bottom-margin {
   opacity: .8;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-italic {
   font-style: italic;
 }
@@ -73,12 +84,27 @@ p, ul, hr, .with-bottom-margin {
 
 @keyframes pause-fade-in {
   0%   { opacity : 0 }
-  50%   { opacity : 0 }
+  50%  { opacity : 0 }
   100% { opacity : 1 }
 }
 
 .anim-pause-fade-in {
   animation-duration : 2s;
   animation-name     : pause-fade-in;
+}
+
+.flex-stack-center {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  text-align     : center;
+
+  .stretched {
+    align-self: stretch;
+  }
+
+  .centered {
+    align-self: center;
+  }
 }
 </style>

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { get } from 'lodash-es'
+import { getImgixUrlForElement } from '@/lib/util.js'
 
 export default {
   name: 'Card',
@@ -37,28 +37,7 @@ export default {
   },
 
   mounted() {
-    const w = this.$refs['img'].offsetWidth
-    const h = this.$refs['img'].offsetHeight
-    let imgixUrl
-
-    try {
-      imgixUrl = new URL(this.item.imgixUrl)
-    } catch(e) {
-      // Defense #1 - `this.item.imgixUrl` is not a valid URL
-      return ''
-    }
-
-    if (!w || !h) {
-      // Defense #2 - element width or height is not available for some reason
-      return imgixUrl
-    }
-
-    const multiplier = get(window, 'devicePixelRatio', 1)
-
-    imgixUrl.searchParams.set('w', `${w * multiplier}`)
-    imgixUrl.searchParams.set('h', `${h * multiplier}`)
-
-    this.imgSrc = imgixUrl
+    this.imgSrc = getImgixUrlForElement(this.item.imgixUrl, this.$refs['img'])
     this.imgAlt = this.item.name
   },
 
@@ -71,7 +50,7 @@ export default {
   },
   methods : {
     cardClick(){
-      alert('Clickable event cards, coming soon...')
+      this.$router.push('event/'+this.item.id)
     }
   }
 }

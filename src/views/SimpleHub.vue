@@ -1,5 +1,5 @@
 <template>
-  <div class="hub">
+  <div class="view-hub">
     <ul>
       <Card
         v-for="event in events"
@@ -10,11 +10,11 @@
     </ul>
     <infinite-loading @infinite="loadNextPage" spinner="waveDots">
       <div slot="no-more">
-        <p>No more events</p>
+        <div class="text-center with-bottom-margin">No more events</div>
         <hr/>
-        <p class="dull text-italic anim-pause-fade-in">While you're here, have you
+        <div class="dull text-italic anim-pause-fade-in">While you're here, have you
           <a href="https://www.change.org/p/boris-johnson-cancel-the-festival-of-britain-save-britain-s-grassroots-culture">signed the petition</a>?
-        </p>
+        </div>
       </div>
       <div slot="no-results">No events found. Curious.</div>
     </infinite-loading>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Card from './Card.vue'
+import Card from '@/components/Card.vue'
 import axios from 'axios'
 import InfiniteLoading from 'vue-infinite-loading'
 import { get } from 'lodash-es'
@@ -82,5 +82,4 @@ ul {
   padding     : 1px;
   width       : 100%;
 }
-
 </style>
