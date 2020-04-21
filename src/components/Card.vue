@@ -1,6 +1,6 @@
 <template>
   <li class="card" :class="cardClass" >
-    <a :href="this.item.uri" @click.prevent="cardClick">
+    <router-link :to="'event/'+item.id">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
@@ -11,7 +11,7 @@
       <div v-if="item.startTimeString" class="summary" >
         {{ item.startTimeString }}
       </div>
-    </a>
+    </router-link>
 
     <div v-if="item.isOnline || item.hasOnlineEvents" class="marker --marker-stream"/>
   </li>
@@ -46,11 +46,6 @@ export default {
       return this.item.status
         ? '--status-'+this.item.status
         : ''
-    }
-  },
-  methods : {
-    cardClick(){
-      this.$router.push('event/'+this.item.id)
     }
   }
 }
