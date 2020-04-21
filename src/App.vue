@@ -5,7 +5,10 @@
 </template>
 
 <style lang="scss">
+// Serif font for headings
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&display=swap');
 
+// Base tags & spacing
 body {
   margin      : 0;
   font-family : Helvetica, Arial, sans-serif;
@@ -31,6 +34,16 @@ time {
   padding-top : 2rem;
 }
 
+h1 {
+  font-size   : 3rem;
+  line-height : 3rem;
+}
+
+h1, h2, h3 {
+  font-family: 'Maitree', serif;
+}
+
+
 h1, h2, h3, p, .with-side-padding {
   padding-left : 1rem;
   padding-right : 1rem;
@@ -45,6 +58,8 @@ p {
   text-align: left;
 }
 
+
+//Text classes
 .dull {
   opacity: .8;
 }
@@ -57,6 +72,23 @@ p {
   font-style: italic;
 }
 
+// Layout
+.flex-stack-center {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  text-align     : center;
+
+  .stretched {
+    align-self: stretch;
+  }
+
+  .centered {
+    align-self: center;
+  }
+}
+
+// Animation
 @keyframes fade-in {
   0%   { opacity : 0 }
   100% { opacity : 1 }
@@ -78,18 +110,4 @@ p {
   animation-name     : pause-fade-in;
 }
 
-.flex-stack-center {
-  display        : flex;
-  flex-direction : column;
-  align-items    : center;
-  text-align     : center;
-
-  .stretched {
-    align-self: stretch;
-  }
-
-  .centered {
-    align-self: center;
-  }
-}
 </style>

@@ -6,13 +6,15 @@
       <h2>Try reloading</h2>
     </div>
     <div v-else class="view-event flex-stack-center">
-      <div class="img-wrapper" ref="img-wrapper">
-        <img v-if="this.state === 'loaded'" :src="imgSrc" :alt="event.name" ref="img" class="anim-fade-in">
-        <h1 class="text-center" :class="{ opaque : event.imageAllowOverlay === false}">{{event.name}}</h1>
-        <time class="text-center"  :class="{ opaque : event.imageAllowOverlay === false}" :datetime="event.startDateString">
-          {{event.startDateString | shortDate }} {{event.startTimeString}}
-        </time>
-      </div>
+      <img :src="imgSrc" :alt="event.name" ref="img" class="anim-fade-in">
+      <h1
+        class="text-center"
+        :class="{ opaque : event.imageAllowOverlay === false, 'long' : event.name && event.name.length > 20}">
+        {{event.name}}
+      </h1>
+      <time class="text-center"  :class="{ opaque : event.imageAllowOverlay === false}" :datetime="event.startDateString">
+        {{event.startDateString | shortDate }} {{event.startTimeString}}
+      </time>
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line"></p>
     </div>
@@ -37,8 +39,20 @@ export default {
 
   computed : {
     ticketHref() {
-      // Note - this is a URI not a URL *shakes fist*
-      return 'https://ents24.com'+get(this.event,'ticketSummary.url')
+      // Note - `url` property is a URI not a URL *shakes fist*
+      // Also note - tickets provided by SaveourVenue should contain a raw url, not an Ents24 buy link. Should.
+      let href = get(this.event,'ticketSummary.url')
+
+      if(!href) {
+        return ''
+      }
+
+      // Double check for ents24 "/ticket/buy" URIs  & handle gracefully
+      if(href.slice(0,7) === '/ticket') {
+        return 'https://ents24.com'+href
+      }
+
+      return href
     },
     /**
      * Break the desc (inc. line breaks) into an array of HTML strings
@@ -75,50 +89,64 @@ export default {
   methods : {
     get,
     refreshImgSrc() {
-      this.imgSrc = getImgixUrlForElement(this.event.imgixUrl, this.$refs['img-wrapper'])
+      if(!this.$refs['img']) {
+        return
+      }
+
+      this.imgSrc = getImgixUrlForElement(this.event.imgixUrl, this.$refs['img'])
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/size.scss';
+
+$max-img-wrapper-width : 1000px;
+$max-img-height-tablet : 350px;
+$max-img-height-tablet : 450px;
+
 .view-event {
   display        : flex;
   flex-direction : column;
 }
 
-.img-wrapper {
-  height          : 400px;
-  align-self      : stretch;
-  display         : flex;
-  flex-direction  : column;
-  justify-content : flex-end;
-  align-items     : center;
+img{
+  width      : 100%;
+  height     : $max-img-height-tablet;
+  max-width  : $max-img-wrapper-width;
+  mask-image : linear-gradient(to bottom, black 15%, transparent 90%);
 
-  img {
-    align-self : stretch;
-    position   : absolute;
-    display    : block;
-    width      : 100%;
-    z-index    : -1;
-    mask-image : linear-gradient(to bottom, black 15%, transparent 90%);
+  @include for-tablet-portrait-up {
+    height : $max-img-height-tablet;
   }
+}
 
-  time {
-    text-transform : uppercase;
-    font-weight    : bold;
+h1 {
+  color      : black;
+  margin-top : -6rem;
+  max-width  : $max-img-wrapper-width;
+
+  &.long {
+    font-size : 2.5rem
   }
+}
 
-  .opaque {
-    background : rgba(255,255,255,.8);
-  }
+time {
+  text-transform : uppercase;
+  font-weight    : bold;
+}
 
+.opaque {
+  background     : white;
+  // Masking is fun...
+  mix-blend-mode : hard-light;
 }
 
 .button.stream {
   height     : 100px;
   width      : 200px;
-  background: url('../assets/img/ents24-stream-diamond.svg') center center no-repeat;
+  background : url('../assets/img/ents24-stream-diamond.svg') center center no-repeat;
 
   &:hover{
     filter: contrast(1.1);

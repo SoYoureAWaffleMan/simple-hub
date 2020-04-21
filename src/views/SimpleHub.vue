@@ -1,7 +1,8 @@
 <template>
-  <div class="view-hub">
+  <div class="view-hub with-top-padding">
     <div class="pre-hub text-center with-bottom-margin">
-      <h1>Save Our Venues events, powered by</h1>
+      <h1>Save Our Venues events</h1>
+      <h2>powered by</h2>
       <a href="https://ents24.com?referer=sov&utm_medium=web&utm_source=sov&utm_campaign=sov-hub" target="_BLANK">
         <img alt="Vue logo" src="../assets/img/ents24-logo-black.svg" width="180">
       </a>
@@ -90,8 +91,8 @@ export default {
   }
 }
 
-h3 {
-  margin: 40px 0 0;
+h2 {
+  margin : 40px 0 0;
 }
 
 ul {

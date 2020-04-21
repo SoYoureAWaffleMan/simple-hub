@@ -2,7 +2,7 @@
   <li class="card" :class="cardClass" >
     <a :href="this.item.uri" @click.prevent="cardClick">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
-      <h3 :class="{ 'reduced-more' : this.item.name.length > 20 }">
+      <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
       </h3>
       <div v-if="item.subtitle" class="subtitle">
@@ -57,17 +57,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$gap-internal : .3rem;
+@import '@/assets/scss/size.scss';
 
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) { @content; }
-}
-
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) { @content; }
-}
-
-$card-summary-color : darkkhaki;
+$gap-internal                 : .3rem;
+$card-summary-color           : darkkhaki;
 $card-summary-cancelled-color : grey;
 
 .card {
@@ -142,16 +135,21 @@ a {
 h3 {
   max-width     : 100%;
   overflow-wrap : break-word;
-  text-shadow   : 0 0 8px rgba(0, 0, 0, 0.6);
+  text-shadow   : 0 0 8px black;
   word-wrap     : break-word;
   font-size     : 1.5rem;
+  line-height   : 1.7rem;
+
+  @include for-tablet-portrait-up {
+    &:not(.long) {
+      font-size   : 1.7rem;
+      line-height : 2rem;
+    }
+  }
 
   &.long {
-    font-size: 1.2rem;
-
-    @include for-tablet-portrait-up {
-      font-size: 1.5rem;
-    }
+    font-size   : 1.2rem;
+    line-height : 1.5rem;
   }
 }
 
