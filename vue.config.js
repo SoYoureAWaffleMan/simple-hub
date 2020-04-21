@@ -1,5 +1,7 @@
 module.exports = {
-  publicPath: '/sov-hub/',
+  // For deploy build...
+  // publicPath: '/sov-hub/',
+  publicPath: '',
   configureWebpack: {
     optimization: {
       splitChunks: false

@@ -4,7 +4,7 @@
       <h1>Save Our Venues events</h1>
       <h2>powered by</h2>
       <a href="https://ents24.com?referer=sov&utm_medium=web&utm_source=sov&utm_campaign=sov-hub" target="_BLANK">
-        <img alt="Vue logo" src="../assets/img/ents24-logo-black.svg" width="180">
+        <img alt="Ents24 logo" src="../assets/img/ents24-logo-black.svg" width="180">
       </a>
     </div>
     <ul>
