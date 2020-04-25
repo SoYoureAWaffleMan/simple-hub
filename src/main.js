@@ -5,7 +5,9 @@ import './filters.js'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+if (document.querySelector('#app')) {
+  new Vue({
+    router,
+    render: h => h(App)
+  }).$mount('#app')
+}
