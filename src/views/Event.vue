@@ -112,8 +112,12 @@ $max-img-height-tablet : 450px;
 }
 
 img{
-  width      : 100%;
-  height     : $max-img-height-tablet;
+  // Encountered an issue on movema demo where height was being set to auto by an id selector!?
+  // `#content .entry-content img { height:auto }`
+  // Likely dumb shit I wrote, but just in case it's endemic I've importanted dimensions here.
+  // It's a word.
+  width      : 100% !important;
+  height     : $max-img-height-tablet !important;
   max-width  : $max-img-wrapper-width;
   mask-image : linear-gradient(to bottom, black 15%, transparent 90%);
 

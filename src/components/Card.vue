@@ -81,78 +81,82 @@ $card-summary-cancelled-color : grey;
     height    : 280px;
     min-width : 250px;
   }
-}
 
-a {
-  text-decoration: none;
-  background-color : #333;
-  color            : white;
-  display          : flex;
-  flex-direction   : column;
-  height           : 100%;
-  justify-content  : flex-end; // Push children to the bottom
-  outline-offset   : -2px;
-  overflow         : hidden;
-  position         : relative; // Contain absolutely-positioned elements
-  width            : 100%;
-  z-index          : 0;
+  a {
+    text-decoration: none;
+    background-color : #333;
+    color            : white;
+    display          : flex;
+    flex-direction   : column;
+    height           : 100%;
+    justify-content  : flex-end; // Push children to the bottom
+    outline-offset   : -2px;
+    overflow         : hidden;
+    position         : relative; // Contain absolutely-positioned elements
+    width            : 100%;
+    z-index          : 0;
 
-  > * {
-    z-index : 1; // above ::before pseudo element (gradient overlay)
-  }
+    > * {
+      z-index : 1; // above ::before pseudo element (gradient overlay)
+    }
 
-  &:before{
-    background : linear-gradient(to bottom, transparent 15%, black 90% );
-    content    : '';
-    display    : block;
-    height     : 100%;
-    position   : absolute;
-    top        : 0;
-    width      : 100%;
-  }
+    &:before{
+      background : linear-gradient(to bottom, transparent 15%, black 90% );
+      content    : '';
+      display    : block;
+      height     : 100%;
+      position   : absolute;
+      top        : 0;
+      width      : 100%;
+    }
 
-  img {
-    height          : 100%;
-    object-fit      : cover; // Server-only version will not have well-fitted image dimensions
-    object-position : center;
-    position        : absolute;
-    top             : 0;
-    width           : 100%;
-    z-index         : -1; // below ::before pseudo element (gradient overlay) and content
-  }
+    img {
+      // Encountered an issue on movema demo where height was being set to auto by an id selector!?
+      // `#content .entry-content img { height:auto }`
+      // Likely dumb shit I wrote, but just in case it's endemic I've importanted dimensions here.
+      // It's a word.
+      height          : 100% !important;
+      width           : 100% !important;
+      object-fit      : cover; // Server-only version will not have well-fitted image dimensions
+      object-position : center;
+      position        : absolute;
+      top             : 0;
+      z-index         : -1; // below ::before pseudo element (gradient overlay) and content
+    }
 
-  h3, .subtitle, .summary {
-    margin-bottom : $gap-internal;
-    padding       : 0 $gap-internal;
-  }
-}
-
-h3 {
-  max-width     : 100%;
-  overflow-wrap : break-word;
-  text-shadow   : 0 0 8px black;
-  word-wrap     : break-word;
-  font-size     : 1.5rem;
-  line-height   : 1.7rem;
-
-  @include for-tablet-portrait-up {
-    &:not(.long) {
-      font-size   : 1.7rem;
-      line-height : 2rem;
+    h3, .subtitle, .summary {
+      margin-bottom : $gap-internal;
+      padding       : 0 $gap-internal;
     }
   }
 
-  &.long {
-    font-size   : 1.2rem;
-    line-height : 1.5rem;
-  }
-}
+  h3 {
+    max-width     : 100%;
+    overflow-wrap : break-word;
+    text-shadow   : 0 0 8px black;
+    word-wrap     : break-word;
+    font-size     : 1.5rem;
+    line-height   : 1.7rem;
 
-.summary {
-  color         : $card-summary-color;
-  white-space   : nowrap;
-  text-overflow : ellipsis;
-  overflow      : hidden;
+    @include for-tablet-portrait-up {
+      &:not(.long) {
+        font-size   : 1.7rem;
+        line-height : 2rem;
+      }
+    }
+
+    &.long {
+      font-size   : 1.2rem;
+      line-height : 1.5rem;
+    }
+  }
+
+  .summary {
+    color         : $card-summary-color;
+    white-space   : nowrap;
+    text-overflow : ellipsis;
+    overflow      : hidden;
+  }
 }
 
 .card.--status-cancelled,
