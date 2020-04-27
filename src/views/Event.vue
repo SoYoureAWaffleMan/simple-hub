@@ -148,6 +148,7 @@ h1 {
   text-transform : uppercase;
   font-family    : sans-serif;
   margin-top     : -8rem;
+  line-height    : 1.3;
   max-width      : $max-img-wrapper-width;
 
   &.long {
