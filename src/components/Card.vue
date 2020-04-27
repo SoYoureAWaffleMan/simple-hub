@@ -1,6 +1,6 @@
 <template>
   <li class="card" :class="cardClass" >
-    <router-link :to="'event/'+item.id">
+    <router-link :to="'event/'+item.id" :class="{opaque : item.imageAllowOverlay === false}">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
@@ -9,7 +9,7 @@
         Supporting <strong>{{ venueName }}</strong>
       </div>
       <div v-if="item.startTimeString" class="summary" >
-        {{ item.startIso | shortDate }} {{ item.startTimeString }}
+        {{ item.startIso | shortDate }} <span>{{ item.startTimeString }}</span>
       </div>
     </router-link>
 
@@ -54,9 +54,7 @@ export default {
       return get(this.item, 'venueSummary.name', 'moose')
     },
     cardClass() {
-      return this.item.status
-        ? '--status-'+this.item.status
-        : ''
+      return '--status-'+this.item.status
     }
   }
 }
@@ -113,7 +111,7 @@ $card-summary-cancelled-color : grey;
       z-index : 1; // above ::before pseudo element (gradient overlay)
     }
 
-    &:before{
+    &:before {
       background : linear-gradient(to bottom, transparent 15%, black 90% );
       content    : '';
       display    : block;
@@ -121,6 +119,10 @@ $card-summary-cancelled-color : grey;
       position   : absolute;
       top        : 0;
       width      : 100%;
+    }
+
+    &.opaque:before {
+      background: linear-gradient(to bottom, transparent 0%, black 70% );
     }
 
     img {
@@ -144,12 +146,13 @@ $card-summary-cancelled-color : grey;
   }
 
   h3 {
-    max-width     : 100%;
-    overflow-wrap : break-word;
-    text-shadow   : 0 0 8px black;
-    word-wrap     : break-word;
-    font-size     : 1.5rem;
-    line-height   : 1.7rem;
+    text-transform : uppercase;
+    max-width      : 100%;
+    overflow-wrap  : break-word;
+    text-shadow    : 0 0 8px black;
+    word-wrap      : break-word;
+    font-size      : 1.5rem;
+    line-height    : 1.7rem;
 
     @include for-tablet-portrait-up {
       &:not(.long) {

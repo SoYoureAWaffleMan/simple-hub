@@ -16,7 +16,8 @@ body {
 }
 
 p, ul, hr, h1, h2, h3 {
-  margin : 0;
+  font-weight : normal;
+  margin      : 0;
 }
 
 p, ul, hr, h1, h2, time, .with-bottom-margin {

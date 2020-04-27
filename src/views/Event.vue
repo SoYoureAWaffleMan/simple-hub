@@ -13,7 +13,7 @@
         {{event.name}}
       </h1>
       <time class="text-center"  :class="{ opaque : event.imageAllowOverlay === false}" :datetime="event.startDateString">
-        {{event.startDateString | shortDate }} {{event.startTimeString}}
+        {{event.startDateString | fullDate }} {{event.startTimeString}}
       </time>
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line"></p>
@@ -143,10 +143,12 @@ img{
 }
 
 h1 {
-  color       : black;
-  font-family : sans-serif;
-  margin-top  : -8rem;
-  max-width   : $max-img-wrapper-width;
+  color          : black;
+  background     : none; // Prevent SOV site leaking h1 BG
+  text-transform : uppercase;
+  font-family    : sans-serif;
+  margin-top     : -8rem;
+  max-width      : $max-img-wrapper-width;
 
   &.long {
     font-size : 2.5rem

@@ -25,3 +25,7 @@ export function getImgixUrlForElement(imgixUrl, el){
 
   return urlObj
 }
+
+export function deviceIsMobileSize() {
+  return window.screen.width < 600
+}

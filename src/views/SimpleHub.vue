@@ -11,8 +11,7 @@
       <Card
         v-for="event in events"
         :key="event.id"
-        :item="event"
-        class="card">
+        :item="event">
       </Card>
     </ul>
     <infinite-loading @infinite="loadNextPage" spinner="waveDots">
