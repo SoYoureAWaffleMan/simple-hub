@@ -16,7 +16,7 @@
         {{event.startDateString | fullDate }} {{event.startTimeString}}
       </time>
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
-      <p v-for="(line, index) in descriptionLines" :key="index" v-html="line"></p>
+      <p v-for="(line, index) in descriptionLines" :key="index" v-html="line" class="text-center text-break-long-anchors"></p>
     </div>
   </div>
 </template>

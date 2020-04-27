@@ -5,6 +5,8 @@
 </template>
 
 <style lang="scss">
+@import '@/assets/scss/size.scss';
+
 // Base tags & spacing
 body {
   margin      : 0;
@@ -62,6 +64,22 @@ p {
 
 .text-italic {
   font-style: italic;
+}
+
+.text-break-long-anchors {
+
+  a{
+    display        : inline-block;
+    vertical-align : bottom;
+    max-width      : 340px;
+    overflow       : hidden;
+    white-space    : nowrap;
+    text-overflow  : ellipsis;
+
+    @include for-tablet-portrait-up {
+      max-width : 400px;
+    }
+}
 }
 
 // Layout
