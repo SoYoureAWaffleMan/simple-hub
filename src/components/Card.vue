@@ -5,8 +5,8 @@
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
       </h3>
-      <div v-if="item.subtitle" class="subtitle">
-        {{ item.subtitle }}
+      <div v-if="item.startIso" class="subtitle">
+        {{ item.startIso | shortDate }}
       </div>
       <div v-if="item.startTimeString" class="summary" >
         {{ item.startTimeString }}
@@ -83,7 +83,7 @@ $card-summary-cancelled-color : grey;
   }
 
   a {
-    text-decoration: none;
+    text-decoration  : none;
     background-color : #333;
     color            : white;
     display          : flex;

@@ -128,7 +128,7 @@ img{
 
 h1 {
   color      : black;
-  margin-top : -6rem;
+  margin-top : -8rem;
   max-width  : $max-img-wrapper-width;
 
   &.long {

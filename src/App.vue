@@ -5,9 +5,6 @@
 </template>
 
 <style lang="scss">
-// Serif font for headings
-@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@500&display=swap');
-
 // Base tags & spacing
 body {
   margin      : 0;
@@ -39,11 +36,6 @@ h1 {
   line-height : 3rem;
 }
 
-h1, h2, h3 {
-  font-family: 'Maitree', serif;
-}
-
-
 h1, h2, h3, p, .with-side-padding {
   padding-left : 1rem;
   padding-right : 1rem;
@@ -57,7 +49,6 @@ p {
   line-height: 1.5rem;
   text-align: left;
 }
-
 
 //Text classes
 .dull {
