@@ -39,6 +39,20 @@ export default {
     Card,
     InfiniteLoading,
   },
+
+  metaInfo() {
+    return {
+      title : 'Events #saveourvenues',
+      meta  : [
+        { property : 'og:title', content: 'Events #saveourvenues'},
+        { property : 'og:description', content: 'Streamed events in support of independent music venues #saveourvenues'},
+        { property : 'og:image', content: 'https://saveourvenues.co.uk/wp-content/uploads/2020/04/LOGO-LARGER.png'},
+        { property : 'og:url', content: window.location.href },
+        { name     : 'twitter:card', content: 'summary_large_image' },
+      ]
+    }
+  },
+
   data : function() {
     return {
       events         : [],

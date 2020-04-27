@@ -29,15 +29,42 @@ import { getImgixUrlForElement } from '@/lib/util.js'
 export default {
   name : 'Event',
 
+  metaInfo() {
+    return {
+      title : this.title,
+      meta  : [
+        { property : 'og:title', content: this.title},
+        { property : 'og:description', content: `Streamed event on behalf of ${this.supportingVenueName}`},
+        { property : 'og:image', content: this.event.imgixUrl},
+        { property : 'og:url', content: window.location.href },
+        { name     : 'twitter:card', content: 'summary_large_image' },
+      ]
+    }
+  },
+
   data : function() {
     return {
-      event  : {},
+      event : {
+        id           : null,
+        name         : '',
+        venueSummary : {}
+      },
       state  : null,   // 'loading', 'loaded' or 'error'
       imgSrc : null,
+
     }
   },
 
   computed : {
+    title(){
+      const date = this.$options.filters.shortDate(this.event.startIso)
+      return `${this.event.name} - supporting ${this.supportingVenueName} on ${date} #saveourvenues`
+    },
+    supportingVenueName() {
+      return this.event.venueSummary.nameContainsTown
+        ? this.event.venueSummary.name
+        : `${this.event.venueSummary.name}, ${this.event.venueSummary.town}`
+    },
     ticketHref() {
       // Note - `url` property is a URI not a URL *shakes fist*
       // Also note - tickets provided by SaveourVenue should contain a raw url, not an Ents24 buy link. Should.

@@ -44,7 +44,7 @@ export default {
 
   computed: {
     venueName(){
-      const name = get(this.item, 'venueSummary.name', '')
+      const name = this.item.venueSummary.nameShort || this.item.venueSummary.name
 
       // *Rolls eyes*
       if (!name || name.toLowerCase().includes('online')) {
