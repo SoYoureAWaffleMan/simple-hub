@@ -80,6 +80,7 @@ export default {
       .catch(() => this.state = 'error')
 
     window.addEventListener('resize', this.refreshImgSrc);
+    window.setTimeout(this.scrollToEl, 100);
   },
 
   destroyed(){
@@ -94,6 +95,13 @@ export default {
       }
 
       this.imgSrc = getImgixUrlForElement(this.event.imgixUrl, this.$refs['img'])
+    },
+    /**
+     * Scroll this component to the top of the page. One better than just scroll-to-top
+     * which doesn't occur in Vue router hash mode
+     */
+    scrollToEl(){
+      this.$el.offsetTop && window.scrollTo(0,this.$el.offsetTop)
     }
   }
 }
@@ -109,6 +117,14 @@ $max-img-height-tablet : 450px;
 .view-event {
   display        : flex;
   flex-direction : column;
+
+  img {
+    z-index: 1;
+  }
+
+  :not(.img){
+    z-index: 10;
+  }
 }
 
 img{
@@ -127,9 +143,10 @@ img{
 }
 
 h1 {
-  color      : black;
-  margin-top : -8rem;
-  max-width  : $max-img-wrapper-width;
+  color       : black;
+  font-family : sans-serif;
+  margin-top  : -8rem;
+  max-width   : $max-img-wrapper-width;
 
   &.long {
     font-size : 2.5rem

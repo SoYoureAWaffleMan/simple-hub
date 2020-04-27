@@ -77,26 +77,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pre-hub {
+@import '@/assets/scss/size.scss';
 
-  a {
-    transition : all .3s;
-    display    : inline-block;
-    opacity    : .8;
+.pre-hub a {
+  transition : all .3s;
+  display    : inline-block;
+  opacity    : .8;
 
-    &:hover {
-      transform : scale(1.1);
-      opacity   : 1;
-    }
+  &:hover {
+    transform : scale(1.1);
+    opacity   : 1;
   }
 }
 
+
 ul {
-  display     : flex;
-  align-items : stretch;
-  box-sizing  : border-box;
-  flex-wrap   : wrap;
-  padding     : 1px;
-  width       : 100%;
+  display      : flex;
+  align-items  : stretch;
+  box-sizing   : border-box;
+  flex-wrap    : wrap;
+  padding      : 1px;
+  width        : 100%;
+  max-width    : $desktop-up-width;
+  margin-left  : auto;
+  margin-right : auto;
 }
 </style>

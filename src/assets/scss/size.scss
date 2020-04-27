@@ -1,3 +1,5 @@
+$desktop-up-width : 1200px;
+
 @mixin for-tablet-portrait-up {
   @media (min-width: 600px) { @content; }
 }
@@ -7,5 +9,5 @@
 }
 
 @mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: $desktop-up-width) { @content; }
 }

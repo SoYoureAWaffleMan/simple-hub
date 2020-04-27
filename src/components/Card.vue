@@ -5,11 +5,11 @@
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
       </h3>
-      <div v-if="item.startIso" class="subtitle">
-        {{ item.startIso | shortDate }}
+      <div v-if="venueName" class="subtitle">
+        Supporting <strong>{{ venueName }}</strong>
       </div>
       <div v-if="item.startTimeString" class="summary" >
-        {{ item.startTimeString }}
+        {{ item.startIso | shortDate }} {{ item.startTimeString }}
       </div>
     </router-link>
 
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { get } from 'lodash-es'
 import { getImgixUrlForElement } from '@/lib/util.js'
 
 export default {
@@ -29,7 +30,7 @@ export default {
     }
   },
 
-  data : function(){
+  data : function() {
     return {
       imgSrc : null,
       imgAlt : '',
@@ -42,6 +43,16 @@ export default {
   },
 
   computed: {
+    venueName(){
+      const name = get(this.item, 'venueSummary.name', '')
+
+      // *Rolls eyes*
+      if (!name || name.toLowerCase().includes('online')) {
+        return null
+      }
+
+      return get(this.item, 'venueSummary.name', 'moose')
+    },
     cardClass() {
       return this.item.status
         ? '--status-'+this.item.status
@@ -53,15 +64,17 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/size.scss';
+@import '@/assets/scss/color.scss';
 
-$gap-internal                 : .3rem;
-$card-summary-color           : darkkhaki;
+$gap-internal                 : .5rem;
+$card-subtitle-color          : $color-sov-salmon;
+$card-summary-color           : $color-sov-apple-green;
 $card-summary-cancelled-color : grey;
 
 .card {
   background-color : black;
   flex             : 1 0 0 ;
-  height           : 230px;
+  height           : 250px;
   margin           : 1px;
   max-width        : 320px;     // MAX default (esp. relevant in final row which may contain a single card)
   min-width        : 150px;     // MIN default
@@ -149,6 +162,10 @@ $card-summary-cancelled-color : grey;
       font-size   : 1.2rem;
       line-height : 1.5rem;
     }
+  }
+
+  .subtitle {
+    color : $card-subtitle-color;
   }
 
   .summary {
