@@ -1,6 +1,7 @@
 <template>
   <li class="card" :class="cardClass" >
-    <router-link :to="'event/'+item.id" :class="{opaque : item.imageAllowOverlay === false}">
+    <!-- <router-link :to="'event/'+item.id" :class="{opaque : item.imageAllowOverlay === false}"> -->
+    <a :href="getEventHref()" @click.prevent="gotoEvent" :class="{opaque : item.imageAllowOverlay === false}">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
         {{ item.name }}
@@ -11,8 +12,7 @@
       <div v-if="item.startTimeString" class="summary" >
         {{ item.startIso | shortDate }} <span>{{ item.startTimeString }}</span>
       </div>
-    </router-link>
-
+    </a>
     <div v-if="item.isOnline || item.hasOnlineEvents" class="marker --marker-stream"/>
   </li>
 </template>
@@ -55,6 +55,17 @@ export default {
     },
     cardClass() {
       return '--status-'+this.item.status
+    }
+  },
+
+  methods : {
+    getEventHref(){
+      const route = this.$router.resolve({ name: 'event', params: { id: this.item.id }})
+      return route.href
+
+    },
+    gotoEvent(){
+      this.$router.push({ name: 'event', params: { id: this.item.id }})
     }
   }
 }
