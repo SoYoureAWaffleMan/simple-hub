@@ -1,9 +1,9 @@
 <template>
   <div class="artist-summary with-bottom-margin" :class="{ 'with-image' : artist.imageSource !== 'default'}">
-    <h3>{{ artist.name }}</h3>
-    <a v-if="artist.imageSource !== 'default'" :to="artist.uri" class="img-anchor">
+    <a v-if="artist.imageSource !== 'default'" :to="artist.uri" class="img-anchor with-bottom-margin">
       <img :src="imgSrc" :alt="imgAlt" ref="img">
     </a>
+    <h3>{{ artist.name }}</h3>
     <p v-if="this.artist.description" v-html="this.artist.description"></p>
   </div>
 </template>
@@ -47,6 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/size.scss';
+@import '@/assets/scss/color.scss';
 
 .artist-summary {
   // Clearer element - img is floated on larger devices
@@ -58,15 +59,17 @@ export default {
 
   .img-anchor {
     display    : block;
-    filter     : grayscale(100%);
     height     : 300px;
-    mask-image : linear-gradient(to bottom, black, transparent);
     width      : 100%;
+    background : $color-seaweed;
 
     img {
       display : block;
       height  : 100%;
       width   : 100%;
+      mix-blend-mode: screen;
+      filter: grayscale(100%) contrast(200%);
+      opacity: 1;
     }
   }
 
@@ -88,11 +91,6 @@ export default {
       display    : block; // Undo inline-block applied to fix URL wrapping _raises eyebrow_
       margin-top : 0!important; // No overlap, pls
     }
-  }
-
-  &.with-image p:first-of-type {
-    // Pull paragraph up onto masked img, unless you're using a Microsoft product for some reason
-    margin-top : -4rem;
   }
 }
 

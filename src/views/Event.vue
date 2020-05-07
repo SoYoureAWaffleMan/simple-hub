@@ -18,9 +18,9 @@
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line" class="text-center text-break-long-anchors"></p>
     </div>
-    <section v-if="artists.length > 0" style="margin:auto" class="with-max-width">
-      <h2>Featuring</h2>
-      <ArtistSummary v-for="artist in artists" :key="artist.id" :artist="artist" />
+    <section v-if="artists.length > 0" style="margin:auto" class="featuring with-top-padding">
+      <h2 class="with-max-width auto-center">Featuring</h2>
+      <ArtistSummary v-for="artist in artists" :key="artist.id" :artist="artist" class="with-max-width auto-center" />
     </section>
   </div>
 </template>
@@ -151,6 +151,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/size.scss';
+@import '@/assets/scss/color.scss';
 
 $max-img-wrapper-width : 1000px;
 $max-img-height-tablet : 350px;
@@ -219,6 +220,11 @@ time {
   &:hover{
     filter: contrast(1.1);
   }
+}
+
+.featuring {
+  background: linear-gradient($color-jade-whisper 80%, transparent);
+  color : $color-seaweed;
 }
 
 .error-msg {

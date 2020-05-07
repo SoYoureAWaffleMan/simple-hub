@@ -58,6 +58,11 @@ p {
   opacity: .8;
 }
 
+.auto-center {
+  margin-left  : auto;
+  margin-right : auto;
+}
+
 .text-center {
   text-align: center;
 }
