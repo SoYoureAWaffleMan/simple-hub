@@ -1,6 +1,12 @@
 import { get } from 'lodash-es'
 
 export function getImgixUrlForElement(imgixUrl, el){
+
+  if(!el) {
+    console.error('Expected an element')
+    return imgixUrl
+  }
+
   const w = el.offsetWidth
   const h = el.offsetHeight
   let urlObj

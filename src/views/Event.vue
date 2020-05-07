@@ -8,7 +8,7 @@
     <div v-else class="view-event flex-stack-center">
       <img :src="imgSrc" :alt="event.name" ref="img" class="anim-fade-in">
       <h1
-        class="text-center"
+        class="text-center text-break"
         :class="{ opaque : event.imageAllowOverlay === false, 'long' : event.name && event.name.length > 20}">
         {{event.name}}
       </h1>
@@ -18,16 +18,24 @@
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line" class="text-center text-break-long-anchors"></p>
     </div>
+    <section v-if="artists.length > 0" style="margin:auto" class="with-max-width">
+      <h2>Featuring</h2>
+      <ArtistSummary v-for="artist in artists" :key="artist.id" :artist="artist" />
+    </section>
   </div>
 </template>
 
 <script>
+import ArtistSummary from '@/components/ArtistSummary.vue'
 import axios from 'axios'
 import { get } from 'lodash-es'
 import { getImgixUrlForElement } from '@/lib/util.js'
 
 export default {
   name : 'Event',
+  components : {
+    ArtistSummary
+  },
 
   metaInfo() {
     return {
@@ -44,13 +52,14 @@ export default {
 
   data : function() {
     return {
-      event : {
+      event   : {
         id           : null,
         name         : '',
         venueSummary : {}
       },
-      state  : null,   // 'loading', 'loaded' or 'error'
-      imgSrc : null,
+      artists : [],
+      state   : null,   // 'loading', 'loaded' or 'error'
+      imgSrc  : null,
 
     }
   },
@@ -108,6 +117,12 @@ export default {
 
     window.addEventListener('resize', this.refreshImgSrc);
     window.setTimeout(this.scrollToEl, 100);
+
+    axios.get('https://www.ents24.com/internal-api/artists/event', {params})
+      .then(response => {
+        let artists = get(response, 'data.data', [])
+        this.artists = artists.filter(artist => artist.isStub === false)
+      })
   },
 
   destroyed(){
@@ -144,6 +159,8 @@ $max-img-height-tablet : 450px;
 .view-event {
   display        : flex;
   flex-direction : column;
+  max-width: 100vw;
+  overflow: hidden;
 
   img {
     z-index: 1;

@@ -22,7 +22,7 @@ p, ul, hr, h1, h2, h3 {
   margin      : 0;
 }
 
-p, ul, hr, h1, h2, time, .with-bottom-margin {
+p, ul, hr, h1, h2, h3, time, .with-bottom-margin {
   margin-bottom : 2rem;
 }
 
@@ -62,8 +62,20 @@ p {
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-italic {
   font-style: italic;
+}
+
+.text-break {
+  overflow-wrap : break-word;
+  word-wrap     : break-word;
+  hyphens: auto;
+  word-break    : break-all;
+  overflow      : hidden;
 }
 
 .text-break-long-anchors {
