@@ -58,10 +58,9 @@ export default {
   },
 
   methods : {
+    // Hard-coded event URL to prevent publicPath from being prepended by router / router-link
     getEventHref(){
-      const route = this.$router.resolve({ name: 'event', params: { id: this.item.id }})
-      return route.href
-
+      return `#/event/${this.item.id}`
     },
     gotoEvent(){
       this.$router.push({ name: 'event', params: { id: this.item.id }})
