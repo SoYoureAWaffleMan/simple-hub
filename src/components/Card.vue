@@ -1,6 +1,5 @@
 <template>
   <li class="card" :class="cardClass" >
-    <!-- <router-link :to="'event/'+item.id" :class="{opaque : item.imageAllowOverlay === false}"> -->
     <a :href="getEventHref()" @click.prevent="gotoEvent" :class="{opaque : item.imageAllowOverlay === false}">
       <img :src="imgSrc" :alt="imgAlt" ref="img" class="anim-fade-in">
       <h3 :class="{ 'long' : this.item.name.length > 20 }">
