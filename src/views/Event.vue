@@ -22,11 +22,15 @@
       <h2 class="with-max-width auto-center">Featuring</h2>
       <ArtistSummary v-for="artist in artists" :key="artist.id" :artist="artist" class="with-max-width auto-center" />
     </section>
+    <section v-if="stages.length > 0" style="margin:auto" class="featuring stages with-top-padding">
+      <stage-summary v-for="stage in stages" :key="stage.id" :stage="stage" class="with-max-width auto-center"/>
+    </section>
   </div>
 </template>
 
 <script>
 import ArtistSummary from '@/components/ArtistSummary.vue'
+import StageSummary from '@/components/StageSummary.vue'
 import axios from 'axios'
 import { get } from 'lodash-es'
 import { getImgixUrlForElement } from '@/lib/util.js'
@@ -34,7 +38,8 @@ import { getImgixUrlForElement } from '@/lib/util.js'
 export default {
   name : 'Event',
   components : {
-    ArtistSummary
+    ArtistSummary,
+    StageSummary,
   },
 
   metaInfo() {
@@ -58,6 +63,7 @@ export default {
         venueSummary : {}
       },
       artists : [],
+      stages  : [],
       state   : null,   // 'loading', 'loaded' or 'error'
       imgSrc  : null,
 
@@ -100,29 +106,28 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     this.state = 'loading'
 
     const params = {
       id : this.$route.params.id
     }
 
-     axios.get('https://www.ents24.com/internal-api/entity/event', {params})
-      .then(response => {
-        this.event = get(response, 'data.data')
-        this.refreshImgSrc()
-        this.state = 'loaded'
-      })
+     const eventResponse = await axios.get('https://www.ents24.com/internal-api/entity/event', {params})
       .catch(() => this.state = 'error')
+
+    this.event = get(eventResponse, 'data.data')
+    this.refreshImgSrc()
+    this.state = 'loaded'
+
+    if(this.event.hasStages) {
+      this.loadStages()
+    } else {
+      this.loadArtists()
+    }
 
     window.addEventListener('resize', this.refreshImgSrc);
     window.setTimeout(this.scrollToEl, 100);
-
-    axios.get('https://www.ents24.com/internal-api/artists/event', {params})
-      .then(response => {
-        let artists = get(response, 'data.data', [])
-        this.artists = artists.filter(artist => artist.isStub === false)
-      })
   },
 
   destroyed(){
@@ -131,6 +136,16 @@ export default {
 
   methods : {
     get,
+    async loadStages(){
+      const stagesResponse = await axios.get('https://www.ents24.com/internal-api/event-stages', {params : { id : this.$route.params.id }})
+      let stages = get(stagesResponse, 'data.data', [])
+      this.stages = stages
+    },
+    async loadArtists(){
+      const artistsResponse = await axios.get('https://www.ents24.com/internal-api/artists/event', {params : { id : this.$route.params.id }})
+      let artists = get(artistsResponse, 'data.data', [])
+      this.artists = artists.filter(artist => artist.isStub === false)
+    },
     refreshImgSrc() {
       if(!this.$refs['img']) {
         return
@@ -226,7 +241,7 @@ time {
   background : linear-gradient($color-jade-whisper 80%, transparent);
   color      : $color-seaweed;
 
-  .artist-summary {
+  .artist-summary, .stage-summary {
     margin-bottom : 4rem;
   }
 }
