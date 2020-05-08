@@ -78,8 +78,7 @@ p {
 .text-break {
   overflow-wrap : break-word;
   word-wrap     : break-word;
-  hyphens: auto;
-  word-break    : break-all;
+  hyphens       : auto;
   overflow      : hidden;
 }
 

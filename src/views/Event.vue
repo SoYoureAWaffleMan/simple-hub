@@ -223,8 +223,12 @@ time {
 }
 
 .featuring {
-  background: linear-gradient($color-jade-whisper 80%, transparent);
-  color : $color-seaweed;
+  background : linear-gradient($color-jade-whisper 80%, transparent);
+  color      : $color-seaweed;
+
+  .artist-summary {
+    margin-bottom : 4rem;
+  }
 }
 
 .error-msg {

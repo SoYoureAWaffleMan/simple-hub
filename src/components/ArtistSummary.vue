@@ -1,5 +1,5 @@
 <template>
-  <div class="artist-summary with-bottom-margin" :class="{ 'with-image' : artist.imageSource !== 'default'}">
+  <div class="artist-summary" :class="{ 'with-image' : artist.imageSource !== 'default'}">
     <a v-if="artist.imageSource !== 'default'" :to="artist.uri" class="img-anchor with-bottom-margin">
       <img :src="imgSrc" :alt="imgAlt" ref="img">
     </a>
