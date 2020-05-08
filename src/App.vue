@@ -15,42 +15,43 @@ body {
   color       : #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-p, ul, hr, h1, h2, h3 {
-  font-weight : normal;
-  margin      : 0;
-}
 
-p, ul, hr, h1, h2, h3, time, .with-bottom-margin {
-  margin-bottom : 2rem;
-}
+  p, ul, hr, h1, h2, h3 {
+    font-weight : normal;
+    margin      : 0;
+  }
 
-time {
-  display: block;
-}
+  p, ul, hr, h1, h2, h3, time, .with-bottom-margin {
+    margin-bottom : 2rem;
+  }
 
-.with-top-padding {
-  padding-top : 2rem;
-}
+  time {
+    display: block;
+  }
 
-h1 {
-  font-size   : 3rem;
-  line-height : 3rem;
-}
+  .with-top-padding {
+    padding-top : 2rem;
+  }
 
-h1, h2, h3, p, .with-side-padding {
-  padding-left : 1rem;
-  padding-right : 1rem;
-}
+  h1 {
+    font-size   : 3rem;
+    line-height : 3rem;
+  }
 
-p, .with-max-width {
-  max-width: 800px;
-}
+  h1, h2, h3, p, .with-side-padding {
+    padding-left : 1rem;
+    padding-right : 1rem;
+  }
 
-p {
-  line-height: 1.5rem;
-  text-align: left;
+  p, .with-max-width {
+    max-width: 800px;
+  }
+
+  p {
+    line-height: 1.5rem;
+    text-align: left;
+  }
 }
 
 //Text classes
