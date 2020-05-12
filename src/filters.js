@@ -3,8 +3,8 @@ import format from 'date-fns/format'
 import {deviceIsMobileSize} from './lib/util.js'
 
 const TERSE_DATE_FORMAT = 'd MMM'
-const SHORT_DATE_FORMAT = 'EEE do MMMM'
-const FULL_DATE_FORMAT  = 'EEEE do MMMM'
+const SHORT_DATE_FORMAT = 'EEE d MMMM'
+const FULL_DATE_FORMAT  = 'EEEE d MMMM'
 
 Vue.filter('shortDate', function (date) {
   const dateFormat = deviceIsMobileSize() ? TERSE_DATE_FORMAT : SHORT_DATE_FORMAT

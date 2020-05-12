@@ -26,10 +26,6 @@ body {
     margin-bottom : 2rem;
   }
 
-  time {
-    display: block;
-  }
-
   .with-top-padding {
     padding-top : 2rem;
   }

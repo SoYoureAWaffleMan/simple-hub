@@ -12,9 +12,24 @@
         :class="{ opaque : event.imageAllowOverlay === false, 'long' : event.name && event.name.length > 20}">
         {{event.name}}
       </h1>
-      <time class="text-center"  :class="{ opaque : event.imageAllowOverlay === false}" :datetime="event.startDateString">
-        {{event.startDateString | fullDate }} {{event.startTimeString}}
-      </time>
+
+      <div v-if="event.isRanged" class="with-side-padding with-bottom-margin">
+        <time :datetime="event.startDateString | fullDate">
+          {{event.startDateString | fullDate }}
+        </time>
+        -
+        <time :datetime="event.endDateString | fullDate">
+          {{event.endDateString | fullDate }}
+        </time>
+         {{formattedTime}}
+      </div>
+
+      <div v-else class="with-side-padding with-bottom-margin"  :class="{ opaque : event.imageAllowOverlay === false}">
+        <time  :datetime="event.startDateString">
+          {{event.startDateString | fullDate }}
+        </time>
+        {{formattedTime}}
+      </div>
       <a class="button stream with-bottom-margin" :href="ticketHref"></a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line" class="text-center text-break-long-anchors"></p>
     </div>
@@ -72,13 +87,40 @@ export default {
 
   computed : {
     title(){
-      const date = this.$options.filters.shortDate(this.event.startIso)
-      return `${this.event.name} - supporting ${this.supportingVenueName} on ${date} #saveourvenues`
+      const date  = this.$options.filters.shortDate(this.event.startIso)
+      const vname = this.supportingVenueName
+      let title   = this.event.name + ' - '
+
+      if(vname){
+        title += `supporting ${vname}`
+      }
+
+      return title + ` on ${date} #saveourvenues`
+    },
+    formattedTime() {
+      const start = this.event.startTimeString
+      const end   = this.event.endTimeString
+
+      if (!start) {
+        return ''
+      }
+
+      if (!end || end === start) {
+        return start
+      }
+
+      return `, ${start} - ${end}`
     },
     supportingVenueName() {
-      return this.event.venueSummary.nameContainsTown
-        ? this.event.venueSummary.name
-        : `${this.event.venueSummary.name}, ${this.event.venueSummary.town}`
+      const vname = this.event.venueSummary.name
+      const vtown = this.event.venueSummary.town
+
+      // *siiigh*
+      if(!vname || vname.toLowerCase().includes('online')){
+        return null
+      }
+
+      return this.event.venueSummary.nameContainsTown ? vname : `${vname}, ${vtown}`
     },
     ticketHref() {
       // Note - `url` property is a URI not a URL *shakes fist*
