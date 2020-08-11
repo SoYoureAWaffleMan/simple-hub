@@ -6,6 +6,7 @@
 
 <style lang="scss">
 @import '@/assets/scss/size.scss';
+@import '@/assets/scss/color.scss';
 
 // Base tags & spacing
 body {
@@ -47,6 +48,10 @@ body {
   p {
     line-height: 1.5rem;
     text-align: left;
+  }
+
+  a {
+    color : $color-sov-link-green;
   }
 }
 
