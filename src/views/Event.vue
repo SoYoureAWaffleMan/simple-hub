@@ -30,7 +30,9 @@
         </time>
         {{formattedTime}}
       </div>
-      <a class="button stream with-bottom-margin" :href="ticketHref"></a>
+      <a class="button with-bottom-margin" :class="{'buy' : !event.isOnline, 'stream' : event.isOnline}" :href="ticketHref">
+        {{ticketCta}}
+      </a>
       <p v-for="(line, index) in descriptionLines" :key="index" v-html="line" class="text-center text-break-long-anchors"></p>
     </div>
     <section v-if="artists.length > 0" style="margin:auto" class="featuring with-top-padding">
@@ -137,6 +139,14 @@ export default {
       }
 
       return href
+    },
+
+    ticketCta() {
+      if (this.event.isOnline) {
+        return '' // Text in 'stream' SVG
+      }
+
+      return this.event.isFree ? 'More Info' : 'Buy Tickets'
     },
     /**
      * Break the desc (inc. line breaks) into an array of HTML strings
@@ -254,7 +264,11 @@ h1 {
   max-width      : $max-img-wrapper-width;
 
   &.long {
-    font-size : 2.5rem
+    font-size : 2rem;
+
+    @include for-tablet-portrait-up {
+      font-size : 2.5rem
+    }
   }
 }
 
@@ -269,13 +283,40 @@ time {
   mix-blend-mode : hard-light;
 }
 
-.button.stream {
-  height     : 100px;
-  width      : 200px;
-  background : url('../assets/img/ents24-stream-diamond.svg') center center no-repeat;
+.button {
+  text-decoration : none;
 
-  &:hover{
-    filter: contrast(1.1);
+  &.buy {
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    background: $color-sov-link-green;
+    color : white;
+
+
+    font-size   : 25px;
+    font-weight : bold;
+    @include for-tablet-portrait-up {
+      font-size : 30px;
+    }
+
+
+    &:hover{
+      opacity: .9;
+    }
+
+    &:active {
+     opacity: 1;
+    }
+  }
+
+  &.stream {
+    height     : 100px;
+    width      : 200px;
+    background : url('../assets/img/ents24-stream-diamond.svg') center center no-repeat;
+
+    &:hover{
+      filter: contrast(1.2);
+    }
   }
 }
 
